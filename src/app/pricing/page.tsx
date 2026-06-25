@@ -62,7 +62,7 @@ export default async function Pricing() {
                       <Link key={id} href={`/strategies/${id}`} className="group flex items-center justify-between gap-3 bg-surface px-4 py-3 transition-colors hover:bg-surface-2">
                         <div className="min-w-0">
                           <div className="truncate text-sm text-text group-hover:text-accent">{s.name}</div>
-                          <div className="truncate font-mono text-[10px] uppercase tracking-wider text-text-muted/55">{s.verification_state.replace("_", "-")}</div>
+                          <div className="truncate font-mono text-[10px] uppercase tracking-wider text-text-muted/55">{s.tv_status}</div>
                         </div>
                         <div className="shrink-0 text-right font-mono tabular-nums">
                           <div className="text-sm text-accent">{pct1(s.stats?.cagr_pct)}</div>

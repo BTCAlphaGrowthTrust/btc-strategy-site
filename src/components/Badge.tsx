@@ -9,8 +9,8 @@ export function VerificationBadge({ status }: { status: string }) {
       }`}
       title={
         verified
-          ? "Independently cross-checked against TradingView"
-          : "Backtested figures — independent (TradingView) verification in progress"
+          ? "External TradingView cross-check complete (internal validation is a separate axis)"
+          : "External TradingView cross-check pending — internal validation is a separate axis (see the per-strategy footnote)"
       }
     >
       <span className={`h-1.5 w-1.5 rounded-full ${verified ? "bg-pos" : "bg-text-muted/60"}`} />

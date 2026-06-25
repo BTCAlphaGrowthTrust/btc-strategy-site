@@ -53,6 +53,12 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
           </div>
           <VerificationBadge status={meta.tv_status} />
         </div>
+        <p className="mt-3 font-mono text-[11px] text-text-muted/55">
+          Two confidence signals: external TradingView cross-check{" "}
+          <span className="text-text-muted">{meta.tv_status}</span>
+          {meta.verification_state && <> · internal validation <span className="text-text-muted">{meta.verification_state.replace("_", "-")}</span></>}.{" "}
+          <a href="https://docs.btcalpha.com.au/docs/concepts/verification" className="text-accent hover:text-accent-hover">how we verify →</a>
+        </p>
 
         {/* stat grid */}
         <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
