@@ -1,12 +1,12 @@
-// Product packaging: tiers + bundles. Prices are "on request" (institutional norm).
-// Bundle memberships are a PROPOSAL for refinement. The Diversifier Bundle is the computed
-// low-correlation set (mean pairwise rho ~0.13 vs the full-17's ~0.32).
+// Product packaging: tiers + bundles. Prices "on request". Bundles are grouped by
+// PERFORMANCE / CHARACTER only (never by method) and reference public alias slugs only —
+// no real ids, no mechanism. The Diversifier is the computed low-correlation set.
 
 export type Bundle = {
   id: string;
   name: string;
   tagline: string;
-  members: string[];
+  members: string[]; // alias slugs
   flagship?: boolean;
 };
 
@@ -16,30 +16,24 @@ export const BUNDLES: Bundle[] = [
     name: "Diversifier Bundle",
     flagship: true,
     tagline:
-      "Six low-correlation strategies spanning all four families — the diversification edge in one subscription (mean pairwise correlation ≈ 0.13, vs 0.32 across all 17).",
-    members: ["atg_4h_ema", "atg_gx_1d_4h", "atg_rss_smma_1d", "atg_rss_e1h_t3", "atg_osc_15m_t3", "atg_ema_1h_t3"],
+      "Six low-correlation strategies — the diversification edge in one subscription (mean pairwise correlation ≈ 0.15, well below the catalogue average).",
+    members: ["helios", "kronos", "selene", "boreas", "aether", "eos"],
   },
   {
-    id: "trend",
-    name: "Trend Bundle",
-    tagline: "Trend-following: EMA-trend and golden-cross strategies.",
-    members: ["atg_4h_ema", "atg_ema_1h_t3", "atg_gx_1d_4h", "atg_gx_4h", "atg_gx_4h_t3", "atg_gx_1h_t3"],
+    id: "flagship",
+    name: "Flagship Bundle",
+    tagline: "The headline performers — the strongest backtested return profiles in the catalogue.",
+    members: ["helios", "athena", "orion", "hyperion", "atlas"],
   },
   {
-    id: "oscillator",
-    name: "Oscillator Bundle",
-    tagline: "Stochastic-oscillator strategies across timeframes.",
-    members: ["atg_osc_1w_4h", "atg_osc_1m_4h", "atg_osc_4h_t3", "atg_osc_15m_t3"],
-  },
-  {
-    id: "squeeze",
-    name: "Squeeze Bundle",
-    tagline: "Ribbon-squeeze volatility-breakout strategies.",
-    members: ["atg_rss_ema_1d", "atg_rss_ema_4h", "atg_rss_smma_1d", "atg_rss_smma_4h", "atg_rss_e4h_t3", "atg_rss_s4h_t3", "atg_rss_e1h_t3"],
+    id: "steady",
+    name: "Steady Bundle",
+    tagline: "The efficient set — strong risk-adjusted returns at the shallowest drawdowns.",
+    members: ["hyperion", "atlas", "selene", "kronos", "apollo"],
   },
 ];
 
-export const bundlesForStrategy = (id: string) => BUNDLES.filter((b) => b.members.includes(id));
+export const bundlesForStrategy = (slug: string) => BUNDLES.filter((b) => b.members.includes(slug));
 export const bundleById = (id: string) => BUNDLES.find((b) => b.id === id);
 
 export type Tier = { id: string; name: string; headline: string; what: string };
@@ -48,17 +42,17 @@ export const TIERS: Tier[] = [
     id: "single",
     name: "Single",
     headline: "One strategy",
-    what: "Any single strategy — full metadata, stats, returns, equity curve, and the risk-% evaluation tool.",
+    what: "Any single strategy — full stats, returns, equity curve, and the risk-% evaluation tool.",
   },
   {
     id: "bundle",
     name: "Bundle",
     headline: "A curated set",
-    what: "A themed set — Trend, Oscillator, Squeeze, or the flagship Diversifier Bundle of low-correlation strategies.",
+    what: "A themed set — Flagship, Steady, or the flagship Diversifier Bundle of low-correlation strategies.",
   },
   {
-    id: "full17",
-    name: "Full-17",
+    id: "full",
+    name: "Full catalogue",
     headline: "Everything",
     what: "Every strategy plus the book-level edge: the full correlation matrix, diversification analytics, and the equal-weight summary.",
   },

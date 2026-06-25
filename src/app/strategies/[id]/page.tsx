@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getStrategy, listStrategyIds } from "@/lib/api";
-import { pct1, num2, pctBig, family, intc } from "@/lib/format";
+import { pct1, num2, pctBig, intc } from "@/lib/format";
 import { bundlesForStrategy, bundleById, ACCESS_MAILTO } from "@/lib/catalogue";
 import { VerificationBadge } from "@/components/Badge";
 import StrategyCurve from "@/components/StrategyCurve";
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   try {
     const { meta } = await getStrategy(id);
-    return { title: `${meta.label} — BTC Alpha`, description: meta.description ?? undefined };
+    return { title: `${meta.name} — BTC Alpha`, description: meta.blurb ?? undefined };
   } catch {
     return { title: "Strategy — BTC Alpha" };
   }
@@ -32,7 +32,7 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
     .map((r) => ({ ...r, pf: stats.profit_factor, sharpe: stats.sharpe_daily_annualized }));
   const bundles = bundlesForStrategy(id);
   const inDiversifier = bundles.some((b) => b.flagship);
-  const subj = (t: string) => `${ACCESS_MAILTO}?subject=${encodeURIComponent(`BTC Alpha — ${t}: ${meta.label}`)}`;
+  const subj = (t: string) => `${ACCESS_MAILTO}?subject=${encodeURIComponent(`BTC Alpha — ${t}: ${meta.name}`)}`;
 
   return (
     <>
@@ -47,10 +47,10 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/60">
-              {family(meta.strategy_type)} · {meta.timeframe} · {meta.instrument}
+              {meta.instrument}
             </div>
-            <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">{meta.label}</h1>
-            {meta.description && <p className="mt-3 max-w-2xl text-text-muted">{meta.description}</p>}
+            <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">{meta.name}</h1>
+            {meta.blurb && <p className="mt-3 max-w-2xl text-text-muted">{meta.blurb}</p>}
           </div>
           <VerificationBadge state={meta.verification_state} />
         </div>

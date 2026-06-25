@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getCatalogue } from "@/lib/api";
 import { BUNDLES, ACCESS_MAILTO } from "@/lib/catalogue";
-import { pct1, num2, family } from "@/lib/format";
+import { pct1, num2 } from "@/lib/format";
 import TierCards from "@/components/TierCards";
 
 export const revalidate = 3600;
@@ -60,8 +60,8 @@ export default async function Pricing() {
                     return (
                       <Link key={id} href={`/strategies/${id}`} className="group flex items-center justify-between gap-3 bg-surface px-4 py-3 transition-colors hover:bg-surface-2">
                         <div className="min-w-0">
-                          <div className="truncate text-sm text-text group-hover:text-accent">{s.label}</div>
-                          <div className="font-mono text-[10px] uppercase tracking-wider text-text-muted/55">{family(s.strategy_type)} · {s.timeframe}</div>
+                          <div className="truncate text-sm text-text group-hover:text-accent">{s.name}</div>
+                          <div className="truncate font-mono text-[10px] uppercase tracking-wider text-text-muted/55">{s.verification_state.replace("_", "-")}</div>
                         </div>
                         <div className="shrink-0 text-right font-mono tabular-nums">
                           <div className="text-sm text-accent">{pct1(s.stats?.cagr_pct)}</div>

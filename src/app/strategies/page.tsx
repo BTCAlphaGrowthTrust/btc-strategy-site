@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getCatalogue } from "@/lib/api";
-import { pct1, num2, family } from "@/lib/format";
+import { pct1, num2 } from "@/lib/format";
 import { bundlesForStrategy, BUNDLES } from "@/lib/catalogue";
 import { VerificationBadge } from "@/components/Badge";
 
@@ -51,14 +51,12 @@ export default async function Catalogue() {
               return (
                 <Link key={s.id} href={`/strategies/${s.id}`} className="group flex flex-col bg-surface p-5 transition-colors hover:bg-surface-2">
                   <div className="flex items-start justify-between gap-3">
-                    <div className="font-display text-[15px] font-semibold leading-snug text-text group-hover:text-accent">
-                      {s.label}
+                    <div className="font-display text-[16px] font-semibold leading-snug text-text group-hover:text-accent">
+                      {s.name}
                     </div>
                     <VerificationBadge state={s.verification_state} />
                   </div>
-                  <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-text-muted/60">
-                    {family(s.strategy_type)} · {s.timeframe}
-                  </div>
+                  <div className="mt-1.5 line-clamp-2 text-sm text-text-muted">{s.blurb}</div>
                   <div className="mt-5 grid grid-cols-4 gap-2 font-mono tabular-nums">
                     <Cell k="CAGR" v={pct1(s.stats?.cagr_pct)} accent />
                     <Cell k="PF" v={num2(s.stats?.profit_factor)} />

@@ -1,15 +1,10 @@
-// Formatting + the correlation diverging colour scale. Pure, no deps.
+// Formatting + the correlation diverging colour scale. Pure, no deps. Alias-only —
+// no real ids, no method/family mapping.
 
-export const shortCode = (id: string) =>
-  id.replace(/^atg_/, "").replace(/_/g, " ").toUpperCase();
-
-const FAMILY: Record<string, string> = {
-  rss_ema: "Ribbon Squeeze", rss_sma: "Ribbon Squeeze", rss_smma: "Ribbon Squeeze",
-  gx: "Golden Cross", gx_4h: "Golden Cross", gx_4h_t3: "Golden Cross",
-  osc: "Stochastic", osc_t3: "Stochastic",
-  ema_4h: "EMA Trend", ema_1h_t3: "EMA Trend", ma_cross: "MA Cross",
-};
-export const family = (t: string) => FAMILY[t] ?? "Systematic";
+// Public ids are alias slugs (e.g. "helios"); display as the capitalised name.
+export const titleCase = (s: string) =>
+  s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+export const shortCode = (slug: string) => titleCase(slug);
 
 export const pct1 = (x: number | null | undefined) =>
   x == null ? "—" : `${x.toFixed(1)}%`;

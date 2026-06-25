@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getLanding } from "@/lib/api";
-import { pct1, num2, family } from "@/lib/format";
+import { pct1, num2 } from "@/lib/format";
 import CorrelationHeatmap from "@/components/CorrelationHeatmap";
 import { VerificationBadge } from "@/components/Badge";
 import TierCards from "@/components/TierCards";
@@ -119,14 +119,12 @@ export default async function Home() {
             {top.map((s) => (
               <Link key={s.id} href={`/strategies/${s.id}`} className="group bg-surface p-5 transition-colors hover:bg-surface-2">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="font-display text-[15px] font-semibold leading-snug text-text group-hover:text-accent">
-                    {s.label}
+                  <div className="font-display text-[16px] font-semibold leading-snug text-text group-hover:text-accent">
+                    {s.name}
                   </div>
                   <VerificationBadge state={s.verification_state} />
                 </div>
-                <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-text-muted/60">
-                  {family(s.strategy_type)} · {s.timeframe}
-                </div>
+                <div className="mt-1.5 line-clamp-2 text-sm text-text-muted">{s.blurb}</div>
                 <div className="mt-5 grid grid-cols-3 gap-2 font-mono tabular-nums">
                   <Cell k="CAGR" v={pct1(s.stats.cagr_pct)} accent />
                   <Cell k="PF" v={num2(s.stats.profit_factor)} />
