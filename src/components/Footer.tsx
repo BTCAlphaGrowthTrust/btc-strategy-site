@@ -35,7 +35,9 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-10 border-t border-border pt-6 text-xs text-text-muted">
-          © Alpha Trading Group — BTC Alpha. Factual historical data, not advice.
+          BTC Alpha is operated by ISI Australia Pty Ltd · ABN 27 652 105 345.
+          <br />
+          © ISI Australia Pty Ltd — BTC Alpha. Factual historical data, not advice.
         </div>
       </div>
     </footer>
