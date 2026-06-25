@@ -54,7 +54,7 @@ export default async function Catalogue() {
                     <div className="font-display text-[16px] font-semibold leading-snug text-text group-hover:text-accent">
                       {s.name}
                     </div>
-                    <VerificationBadge state={s.verification_state} />
+                    <VerificationBadge status={s.tv_status} />
                   </div>
                   <div className="mt-1.5 line-clamp-2 text-sm text-text-muted">{s.blurb}</div>
                   <div className="mt-5 grid grid-cols-4 gap-2 font-mono tabular-nums">

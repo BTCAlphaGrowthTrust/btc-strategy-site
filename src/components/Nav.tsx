@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const links = [
   { href: "/strategies", label: "Strategies" },
-  { href: "/methodology", label: "Methodology" },
+  { href: "https://docs.btcalpha.com.au/docs/methodology/overview", label: "Methodology", external: true },
   { href: "https://docs.btcalpha.com.au", label: "Docs ↗", external: true },
 ];
 
@@ -29,12 +29,12 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/access"
+          <a
+            href="mailto:thomas@btcalpha.com.au?subject=BTC%20Alpha%20—%20access%20request"
             className="rounded-full bg-accent px-4 py-1.5 font-medium text-bg transition-colors hover:bg-accent-hover"
           >
             Request access
-          </Link>
+          </a>
         </nav>
       </div>
     </header>

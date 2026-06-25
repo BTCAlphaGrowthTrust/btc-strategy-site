@@ -16,7 +16,7 @@ const median = (a: number[]) => {
 };
 
 export type Strategy = {
-  id: string; name: string; blurb?: string;
+  id: string; name: string; blurb?: string; tv_status: string;
   base_risk_pct: number; verification_state: string;
   stats: { cagr_pct: number | null; profit_factor: number | null;
            max_drawdown_pct: number; sharpe_daily_annualized: number | null;
@@ -35,7 +35,7 @@ export async function getLanding() {
   );
   const byId: Record<string, any> = Object.fromEntries(stats.map((s: any) => [s.id, s]));
   const strategies: Strategy[] = strategiesR.data.map((s: any) => ({
-    id: s.id, name: s.name, blurb: s.blurb,
+    id: s.id, name: s.name, blurb: s.blurb, tv_status: s.tv_status,
     base_risk_pct: s.base_risk_pct, verification_state: s.verification_state,
     stats: byId[s.id],
   }));
@@ -70,7 +70,7 @@ export async function getCatalogue() {
   );
   const byId: Record<string, any> = Object.fromEntries(stats.map((s: any) => [s.id, s]));
   const strategies: Strategy[] = strategiesR.data.map((s: any) => ({
-    id: s.id, name: s.name, blurb: s.blurb,
+    id: s.id, name: s.name, blurb: s.blurb, tv_status: s.tv_status,
     base_risk_pct: s.base_risk_pct, verification_state: s.verification_state, stats: byId[s.id],
   }));
   return { strategies, datasetVersion: strategiesR.meta.dataset_version };

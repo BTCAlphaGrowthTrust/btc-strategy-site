@@ -30,7 +30,7 @@ export default async function Home() {
             Systematic Bitcoin strategy data
           </div>
           <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[1.05] sm:text-6xl">
-            {d.count} verified strategies.
+            {d.count} systematic strategies.
             <br />
             One API.
           </h1>
@@ -43,7 +43,7 @@ export default async function Home() {
           <div className="mt-10 flex flex-wrap items-end gap-x-12 gap-y-6">
             <Stat label="Backtested CAGR up to" value={pct1(d.cagrMax)} />
             <Stat label="Profit factor up to" value={`${num2(d.pfMax)}×`} />
-            <Stat label="Dual-verified" value={`${d.dualVerified} / ${d.count}`} muted />
+            <Stat label="Median profit factor" value={num2(d.pfMedian)} muted />
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -122,7 +122,7 @@ export default async function Home() {
                   <div className="font-display text-[16px] font-semibold leading-snug text-text group-hover:text-accent">
                     {s.name}
                   </div>
-                  <VerificationBadge state={s.verification_state} />
+                  <VerificationBadge status={s.tv_status} />
                 </div>
                 <div className="mt-1.5 line-clamp-2 text-sm text-text-muted">{s.blurb}</div>
                 <div className="mt-5 grid grid-cols-3 gap-2 font-mono tabular-nums">

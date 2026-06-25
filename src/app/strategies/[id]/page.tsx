@@ -52,7 +52,7 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
             <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">{meta.name}</h1>
             {meta.blurb && <p className="mt-3 max-w-2xl text-text-muted">{meta.blurb}</p>}
           </div>
-          <VerificationBadge state={meta.verification_state} />
+          <VerificationBadge status={meta.tv_status} />
         </div>
 
         {/* stat grid */}

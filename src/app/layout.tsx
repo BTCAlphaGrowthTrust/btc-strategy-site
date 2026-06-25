@@ -17,7 +17,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-bg text-text">
         <div className="border-b border-accent/20 bg-accent/[0.06]">
           <p className="mx-auto max-w-6xl px-6 py-1.5 text-center font-mono text-[11px] tracking-wide text-accent/90">
-            Provisional figures — pending TradingView cross-check. Not final for public.
+            Backtested figures — independent (TradingView) verification in progress.
           </p>
         </div>
         <Nav />
