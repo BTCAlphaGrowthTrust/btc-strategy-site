@@ -24,7 +24,7 @@ export default function Footer() {
               <Link href="/strategies" className="text-text-muted hover:text-accent-hover">Strategies</Link>
               <Link href="/pricing" className="text-text-muted hover:text-accent-hover">Pricing</Link>
               <a href="https://docs.btcalpha.com.au/docs/methodology/overview" className="text-text-muted hover:text-accent-hover">Methodology</a>
-              <a href="mailto:thomas@btcalpha.com.au?subject=BTC%20Alpha%20—%20access%20request" className="text-text-muted hover:text-accent-hover">Request access</a>
+              <Link href="/access" className="text-text-muted hover:text-accent-hover">Request access</Link>
             </div>
             <div className="flex flex-col gap-2.5">
               <span className="font-medium text-text">Resources</span>

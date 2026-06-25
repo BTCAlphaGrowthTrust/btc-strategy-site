@@ -1,4 +1,5 @@
-import { TIERS, ACCESS_MAILTO } from "@/lib/catalogue";
+import Link from "next/link";
+import { TIERS } from "@/lib/catalogue";
 
 export default function TierCards() {
   return (
@@ -20,8 +21,8 @@ export default function TierCards() {
             <div className="mt-6 font-mono text-sm">
               <span className="text-text">Price</span> <span className="text-text-muted">on request</span>
             </div>
-            <a
-              href={`${ACCESS_MAILTO}?subject=BTC%20Alpha%20—%20${encodeURIComponent(t.name)}%20tier%20access`}
+            <Link
+              href={`/access?tier=${t.id}`}
               className={`mt-4 rounded-full px-5 py-2.5 text-center font-medium transition-colors ${
                 featured
                   ? "bg-accent text-bg hover:bg-accent-hover"
@@ -29,7 +30,7 @@ export default function TierCards() {
               }`}
             >
               Request access
-            </a>
+            </Link>
           </div>
         );
       })}

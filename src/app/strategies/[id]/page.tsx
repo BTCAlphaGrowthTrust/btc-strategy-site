@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getStrategy, listStrategyIds } from "@/lib/api";
 import { pct1, num2, pctBig, intc } from "@/lib/format";
-import { bundlesForStrategy, bundleById, ACCESS_MAILTO } from "@/lib/catalogue";
+import { bundlesForStrategy } from "@/lib/catalogue";
 import { VerificationBadge } from "@/components/Badge";
 import StrategyCurve from "@/components/StrategyCurve";
 import RangeTable from "@/components/RangeTable";
@@ -32,7 +32,6 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
     .map((r) => ({ ...r, pf: stats.profit_factor, sharpe: stats.sharpe_daily_annualized }));
   const bundles = bundlesForStrategy(id);
   const inDiversifier = bundles.some((b) => b.flagship);
-  const subj = (t: string) => `${ACCESS_MAILTO}?subject=${encodeURIComponent(`BTC Alpha — ${t}: ${meta.name}`)}`;
 
   return (
     <>
@@ -120,9 +119,9 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
               Live data, stats, returns and the risk-% tool — as a single-strategy subscription, or
               bundled. Pricing on request.
             </p>
-            <a href={subj("Single tier")} className="mt-5 block rounded-full bg-accent px-5 py-2.5 text-center font-medium text-bg transition-colors hover:bg-accent-hover">
+            <Link href={`/access?tier=single&ctx=${encodeURIComponent(meta.name)}`} className="mt-5 block rounded-full bg-accent px-5 py-2.5 text-center font-medium text-bg transition-colors hover:bg-accent-hover">
               Subscribe — Single tier
-            </a>
+            </Link>
             {inDiversifier && (
               <Link href="/pricing#diversifier" className="mt-3 block rounded-full border border-accent/40 px-5 py-2.5 text-center font-medium text-accent transition-colors hover:bg-accent/10">
                 or get it in the Diversifier Bundle

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getCatalogue } from "@/lib/api";
-import { BUNDLES, ACCESS_MAILTO } from "@/lib/catalogue";
+import { BUNDLES } from "@/lib/catalogue";
 import { pct1, num2 } from "@/lib/format";
 import TierCards from "@/components/TierCards";
 
@@ -71,10 +71,10 @@ export default async function Pricing() {
                     );
                   })}
                 </div>
-                <a href={`${ACCESS_MAILTO}?subject=${encodeURIComponent(`BTC Alpha — ${b.name}`)}`}
+                <Link href={`/access?tier=bundle&ctx=${encodeURIComponent(b.name)}`}
                    className="mt-5 inline-block rounded-full border border-border px-5 py-2 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent">
                   Request access — {b.name}
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -84,10 +84,14 @@ export default async function Pricing() {
             <p className="mx-auto mt-3 max-w-lg text-text-muted">
               Tell us which tier or bundle fits and we&apos;ll get you set up. Pricing on request.
             </p>
-            <a href={`${ACCESS_MAILTO}?subject=${encodeURIComponent("BTC Alpha — access request")}`}
+            <Link href="/access"
                className="mt-6 inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
-              thomas@btcalpha.com.au
-            </a>
+              Request access
+            </Link>
+            <p className="mt-4 text-sm text-text-muted">
+              or email{" "}
+              <span className="select-all font-mono text-text">thomas@btcalpha.com.au</span>
+            </p>
             <p className="mt-5 font-mono text-xs text-text-muted/60">backtested / modelled historical data, not advice</p>
           </div>
         </div>

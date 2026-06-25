@@ -29,12 +29,12 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <a
-            href="mailto:thomas@btcalpha.com.au?subject=BTC%20Alpha%20—%20access%20request"
+          <Link
+            href="/access"
             className="rounded-full bg-accent px-4 py-1.5 font-medium text-bg transition-colors hover:bg-accent-hover"
           >
             Request access
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

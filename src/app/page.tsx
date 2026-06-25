@@ -50,10 +50,10 @@ export default async function Home() {
             <Link href="/strategies" className="rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
               Explore strategies →
             </Link>
-            <a href="mailto:thomas@btcalpha.com.au?subject=BTC%20Alpha%20Strategy%20Data%20—%20access"
+            <Link href="/access"
                className="rounded-full border border-border px-6 py-3 font-medium text-text transition-colors hover:border-accent hover:text-accent">
               Get access
-            </a>
+            </Link>
           </div>
         </div>
       </section>
