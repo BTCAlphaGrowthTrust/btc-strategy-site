@@ -129,7 +129,7 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
               </Link>
             )}
             <Link href="/pricing" className="mt-3 block rounded-full border border-border px-5 py-2.5 text-center font-medium text-text transition-colors hover:border-accent hover:text-accent">
-              or Full-17 — everything
+              or the full catalogue — everything
             </Link>
             {bundles.length > 0 && (
               <p className="mt-4 font-mono text-[11px] text-text-muted/60">

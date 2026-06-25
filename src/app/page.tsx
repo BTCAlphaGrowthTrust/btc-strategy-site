@@ -75,7 +75,7 @@ export default async function Home() {
               <div className="max-w-xl">
                 <p className="text-text-muted">
                   Strong individually — but they don&apos;t move together. Mean pairwise
-                  correlation is just <Num>{num2(d.meanCorr)}</Num>, so 17 strategies behave like
+                  correlation is just <Num>{num2(d.meanCorr)}</Num>, so {d.count} strategies behave like
                   about <Num>{num2(d.effectiveBets)}</Num> independent bets. Combine them
                   equal-weight and the book is <span className="text-text">steadier than any
                   single piece</span>:
@@ -170,15 +170,15 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 5 · TIERS — buy one, a set, or all 17 */}
+      {/* 5 · TIERS — buy one, a set, or all of them */}
       <section className="reveal">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex flex-wrap items-end justify-between gap-3">
-            <SectionLabel n="05" title="Buy one, a set, or all 17" />
+            <SectionLabel n="05" title={`Buy one, a set, or all ${d.count}`} />
             <Link href="/pricing" className="text-sm text-accent hover:text-accent-hover">Full pricing &amp; bundles →</Link>
           </div>
           <p className="mt-4 max-w-2xl text-text-muted">
-            Subscribe to a single strategy, a curated bundle, or the full 17. Licensed for
+            Subscribe to a single strategy, a curated bundle, or the full {d.count}. Licensed for
             professional &amp; institutional use — pricing on request.
           </p>
           <div className="mt-8">

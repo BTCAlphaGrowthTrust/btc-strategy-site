@@ -8,7 +8,7 @@ import TierCards from "@/components/TierCards";
 export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Pricing & bundles — BTC Alpha",
-  description: "Single, Bundle, or Full-17. Pricing on request. Bundle compositions.",
+  description: "Single, Bundle, or the full catalogue. Pricing on request. Bundle compositions.",
 };
 
 export default async function Pricing() {
@@ -21,7 +21,7 @@ export default async function Pricing() {
         <div className="mx-auto max-w-6xl px-6 pt-16 pb-12">
           <h1 className="text-4xl font-semibold sm:text-5xl">Pricing &amp; bundles</h1>
           <p className="mt-4 max-w-2xl text-text-muted">
-            Three ways to subscribe — a single strategy, a curated bundle, or the full 17.
+            Three ways to subscribe — a single strategy, a curated bundle, or the full {strategies.length}.
             Licensed for professional &amp; institutional use. Pricing on request.
           </p>
           <div className="mt-10">

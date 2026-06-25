@@ -8,7 +8,7 @@ import { VerificationBadge } from "@/components/Badge";
 export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Strategy catalogue — BTC Alpha",
-  description: "Browse all 17 backtested BTC strategies. Subscribe to one, a bundle, or all 17.",
+  description: "Browse all 14 backtested BTC strategies. Subscribe to one, a bundle, or all 14.",
 };
 
 export default async function Catalogue() {
