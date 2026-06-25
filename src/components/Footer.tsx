@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export default function Footer() {
   return (
@@ -29,7 +30,7 @@ export default function Footer() {
             <div className="flex flex-col gap-2.5">
               <span className="font-medium text-text">Resources</span>
               <a href="https://docs.btcalpha.com.au" className="text-text-muted hover:text-accent-hover">Documentation</a>
-              <a href="mailto:thomas@btcalpha.com.au" className="text-text-muted hover:text-accent-hover">Contact</a>
+              <ObfuscatedEmail mode="link" label="Contact" fallbackHref="/access" className="text-text-muted hover:text-accent-hover" />
             </div>
           </div>
         </div>

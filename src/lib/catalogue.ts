@@ -57,5 +57,3 @@ export const TIERS: Tier[] = [
     what: "Every strategy plus the book-level edge: the full correlation matrix, diversification analytics, and the equal-weight summary.",
   },
 ];
-
-export const ACCESS_MAILTO = "mailto:thomas@btcalpha.com.au";

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AccessForm from "@/components/AccessForm";
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
   title: "Request access — BTC Alpha",
@@ -30,11 +31,18 @@ export default async function AccessPage({
 
       <p className="mt-6 text-sm text-text-muted">
         Prefer email? Reach us directly at{" "}
-        <a href="mailto:thomas@btcalpha.com.au" className="font-mono text-accent hover:text-accent-hover">
-          thomas@btcalpha.com.au
-        </a>{" "}
+        <ObfuscatedEmail
+          mode="link"
+          fallbackHref="/access"
+          placeholder="the address below"
+          className="font-mono text-accent hover:text-accent-hover"
+        />{" "}
         — or copy it:{" "}
-        <span className="select-all rounded bg-surface px-2 py-0.5 font-mono text-text">thomas@btcalpha.com.au</span>
+        <ObfuscatedEmail
+          mode="text"
+          placeholder="(enable JavaScript to view)"
+          className="rounded bg-surface px-2 py-0.5 font-mono text-text"
+        />
       </p>
     </div>
   );

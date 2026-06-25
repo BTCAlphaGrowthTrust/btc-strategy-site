@@ -4,6 +4,7 @@ import { getCatalogue } from "@/lib/api";
 import { BUNDLES } from "@/lib/catalogue";
 import { pct1, num2 } from "@/lib/format";
 import TierCards from "@/components/TierCards";
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
@@ -90,7 +91,7 @@ export default async function Pricing() {
             </Link>
             <p className="mt-4 text-sm text-text-muted">
               or email{" "}
-              <span className="select-all font-mono text-text">thomas@btcalpha.com.au</span>
+              <ObfuscatedEmail mode="text" placeholder="(enable JavaScript to view)" className="font-mono text-text" />
             </p>
             <p className="mt-5 font-mono text-xs text-text-muted/60">backtested / modelled historical data, not advice</p>
           </div>

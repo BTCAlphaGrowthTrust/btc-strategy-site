@@ -4,6 +4,7 @@ import { pct1, num2 } from "@/lib/format";
 import CorrelationHeatmap from "@/components/CorrelationHeatmap";
 import { VerificationBadge } from "@/components/Badge";
 import TierCards from "@/components/TierCards";
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export const revalidate = 3600;
 
@@ -185,7 +186,7 @@ export default async function Home() {
             <TierCards />
           </div>
           <p className="mt-6 font-mono text-xs text-text-muted/60">
-            thomas@btcalpha.com.au · backtested / modelled historical data, not advice
+            <ObfuscatedEmail mode="text" placeholder="email us" className="text-text-muted/60" /> · backtested / modelled historical data, not advice
           </p>
         </div>
       </section>

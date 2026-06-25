@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 // Web3Forms PUBLIC access key — safe in client code (delivers the lead to the inbox configured
-// in the Web3Forms dashboard, thomas@btcalpha.com.au). It is not a secret.
+// in the Web3Forms dashboard). It is not a secret.
 const ACCESS_KEY = "3fd6281d-f4e2-4017-b966-692f8af5731a";
 const TIER_OPTIONS = ["Single", "Bundle", "Full catalogue"];
 const tierFromParam = (p?: string) =>
@@ -44,11 +44,11 @@ export default function AccessForm({ initialTier, context }: { initialTier?: str
       if (data.success) setStatus("success");
       else {
         setStatus("error");
-        setError(data.message || "Something went wrong. Please email thomas@btcalpha.com.au directly.");
+        setError(data.message || "Something went wrong. Please try again, or use the email link below.");
       }
     } catch {
       setStatus("error");
-      setError("Network error. Please email thomas@btcalpha.com.au directly.");
+      setError("Network error. Please try again, or use the email link below.");
     }
   }
 
@@ -57,9 +57,8 @@ export default function AccessForm({ initialTier, context }: { initialTier?: str
       <div className="rounded-xl border border-pos/40 bg-pos/[0.06] p-8 text-center">
         <div className="font-display text-2xl font-semibold text-pos">Thanks — we&apos;ll be in touch.</div>
         <p className="mx-auto mt-3 max-w-md text-text-muted">
-          Your request has been sent to{" "}
-          <span className="font-mono text-text">thomas@btcalpha.com.au</span>. Expect a reply
-          shortly. For anything urgent, email us directly.
+          Your request has been sent and will reach us by email. Expect a reply shortly — for
+          anything urgent, use the email link below.
         </p>
       </div>
     );
