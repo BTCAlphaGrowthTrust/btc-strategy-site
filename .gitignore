@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# INTERNAL — private business docs (pricing model, etc). NEVER commit / never publish.
+# Lives in the working tree for local review only; outside src/app & public so it is never served.
+/internal/
+/docs-internal/
