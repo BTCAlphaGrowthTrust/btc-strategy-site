@@ -1,19 +1,13 @@
 // Server-side API client for btc-strategy-data-api. Unwraps the { data, meta, links }
 // envelope; fetches are ISR-cached (revalidate 1h). All figures are backtested/modelled.
 
-// Server-side only. Defaults to production; override (e.g. http://127.0.0.1:8100) to build
-// against a local gated API when testing the access layer.
+// Server-side only. Defaults to production; override (e.g. http://127.0.0.1:8100) for local builds.
 const BASE = process.env.STRATEGY_API_BASE ?? "https://btc-strategy-data-api.fly.dev";
 
 async function get<T = any>(path: string): Promise<{ data: T; meta: any }> {
-  // Server-side showcase key — set as a Vercel SERVER env var (STRATEGY_API_KEY). These fetches
-  // run in RSC/SSG/ISR only, so the key is NEVER exposed to the browser. Unset (local dev) →
-  // anonymous preview (gated per-strategy endpoints will 403 unless you set the var locally too).
-  const key = process.env.STRATEGY_API_KEY;
-  const r = await fetch(BASE + path, {
-    next: { revalidate: 3600 },
-    headers: key ? { "X-API-Key": key } : undefined,
-  });
+  // All HISTORICAL data is OPEN (free, no key) — the live SIGNALS are the paid product, served by
+  // a separate API. No X-API-Key here; these fetches render full data anonymously (RSC/SSG/ISR).
+  const r = await fetch(BASE + path, { next: { revalidate: 3600 } });
   if (!r.ok) throw new Error(`${path} -> ${r.status}`);
   return r.json();
 }
