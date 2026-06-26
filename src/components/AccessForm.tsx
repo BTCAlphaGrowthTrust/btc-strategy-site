@@ -32,6 +32,7 @@ export default function AccessForm({ initialTier, context }: { initialTier?: str
       tier_interest: tier || "—",
       context: context || "—",
       message: fd.get("message"),
+      leverage_acknowledged: fd.get("leverage_ack") ? "yes" : "no",
       botcheck: fd.get("botcheck") ? true : false,
     };
     try {
@@ -111,6 +112,17 @@ export default function AccessForm({ initialTier, context }: { initialTier?: str
           className={`${inputCls} resize-y`}
         />
       </Field>
+
+      {/* REQUIRED leverage acknowledgement */}
+      <label className="flex items-start gap-3 rounded-lg border border-amber-500/40 bg-amber-500/[0.06] p-4 text-sm text-text-muted">
+        <input type="checkbox" name="leverage_ack" required className="mt-0.5 h-4 w-4 shrink-0 accent-amber-500" />
+        <span>
+          I understand the signals imply <strong className="text-text">leveraged</strong> positions (typically ~1×,
+          up to ~15× on tight-stop trades), <strong className="text-text">not a 1:1 deployment</strong>, and that
+          I execute on my own venue at my own size. <span className="text-text-muted/70">Backtested / modelled,
+          provisional — not advice.</span>
+        </span>
+      </label>
 
       {status === "error" && (
         <p className="rounded-lg border border-neg/40 bg-neg/[0.06] px-4 py-2.5 text-sm text-neg">{error}</p>

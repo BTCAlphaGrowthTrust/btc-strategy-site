@@ -73,6 +73,25 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
           <Stat k="Denomination" v={(meta.ccy ?? stats.ccy ?? "BTC")} sub="inverse" />
         </div>
 
+        {/* REQUIRED leverage disclosure — signals imply leveraged positions, not 1:1 deployment */}
+        {meta.leverage_typical != null && (
+          <div className="mt-6 rounded-xl border border-amber-500/40 bg-amber-500/[0.06] p-5">
+            <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
+              <div className="font-mono text-[11px] uppercase tracking-wider text-amber-400">⚠ Leverage — read before sizing</div>
+              <div className="font-mono text-sm text-text">
+                typical <span className="font-semibold text-amber-300">{meta.leverage_typical}×</span> · max{" "}
+                <span className="font-semibold text-amber-300">{meta.leverage_max}×</span>
+              </div>
+            </div>
+            <p className="mt-2 text-sm text-text-muted">
+              These signals imply a <strong className="text-text">leveraged</strong> position — <strong className="text-text">not a 1:1
+              deployment</strong>. At the stated risk %, the position notional is about <strong className="text-text">{meta.leverage_typical}×</strong> your
+              deployed capital (typical), and up to <strong className="text-text">{meta.leverage_max}×</strong> on a tight-stop trade. You
+              execute on your own venue at your own size — cap your leverage at your discretion.
+            </p>
+          </div>
+        )}
+
         {/* curve + risk-% evaluation */}
         <div className="mt-8">
           <StrategyCurve returns={returns} baseRisk={meta.base_risk_pct} />
