@@ -31,6 +31,46 @@ export default async function Pricing() {
         </div>
       </section>
 
+      {/* How we price — PRINCIPLES only (no dials/numbers/formula) */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <h2 className="text-2xl font-semibold">How we price</h2>
+          <p className="mt-4 max-w-2xl text-text-muted">
+            Pricing is <strong>value-based and capacity-aware</strong> — never a flat per-seat fee, never
+            arbitrary. Two things set each strategy&apos;s price.
+          </p>
+          <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+            <Principle title="Deployable capacity">
+              A strategy can only support a finite amount of capital before its own market impact erodes the
+              edge. That capacity is bounded by <span className="text-text">real market liquidity</span> and by
+              how the strategy actually deploys — its position size relative to that liquidity. We price against
+              that real, finite capacity, strategy by strategy.
+            </Principle>
+            <Principle title="Risk-adjusted expected value">
+              The conservative return the edge generates on the capital deployed through it —{" "}
+              <span className="text-text">tapered and haircut</span> for the gap between backtest and live, and
+              discounted while independent verification is pending.
+            </Principle>
+            <Principle title="You keep the larger share">
+              The price is a <span className="text-text">fair fraction</span> of the value the edge creates on
+              your capital — structured so the majority of that value stays with you.
+            </Principle>
+            <Principle title="Finite capacity, protected">
+              We cap the total subscribed capital per strategy so the edge stays sharp for everyone who holds it.
+              That cap isn&apos;t a restriction on you — it&apos;s <span className="text-text">protection of the
+              value you&apos;re buying</span>. Seats are limited by design.
+            </Principle>
+          </div>
+          <p className="mt-8 max-w-2xl text-text-muted">
+            <strong>Verify before you commit.</strong> Every figure behind a quote is conservative, tapered, and
+            provisional pending verification — and the <strong>entire track record is free to inspect, no key</strong>,
+            before you ever subscribe. Because the right number depends on a strategy&apos;s capacity, its
+            conservative value, and the scope you want, pricing is <strong>bespoke and request-based</strong> — we
+            quote each desk directly.
+          </p>
+        </div>
+      </section>
+
       <section>
         <div className="mx-auto max-w-6xl px-6 py-16">
           <h2 className="text-2xl font-semibold">Bundle compositions</h2>
@@ -99,5 +139,14 @@ export default async function Pricing() {
         </div>
       </section>
     </>
+  );
+}
+
+function Principle({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="bg-surface p-7">
+      <div className="font-display text-lg font-semibold text-text">{title}</div>
+      <p className="mt-3 text-sm leading-relaxed text-text-muted">{children}</p>
+    </div>
   );
 }
