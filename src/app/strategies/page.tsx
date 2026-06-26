@@ -8,7 +8,7 @@ import { VerificationBadge } from "@/components/Badge";
 export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Strategy catalogue — BTC Alpha",
-  description: "Browse all 14 backtested BTC strategies. Subscribe to one, a bundle, or all 14.",
+  description: "Browse all 14 backtested BTC strategies — full track records free, no key. Subscribe for the live signals.",
 };
 
 export default async function Catalogue() {
@@ -28,7 +28,8 @@ export default async function Catalogue() {
           <h1 className="text-4xl font-semibold sm:text-5xl">Strategy catalogue</h1>
           <p className="mt-4 max-w-2xl text-text-muted">
             Every strategy is backtested over ~8 years on BTC-PERPETUAL, net of fees &amp; slippage,
-            and individually evaluable. Subscribe to one, a curated bundle, or the full {strategies.length}.
+            and individually evaluable — every track record is <strong>free</strong> to verify against your
+            own book. Subscribe for the <strong>live signals</strong>.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {BUNDLES.map((b) => (

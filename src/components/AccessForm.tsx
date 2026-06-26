@@ -91,7 +91,7 @@ export default function AccessForm({ initialTier, context }: { initialTier?: str
         <Field label="Company or desk" hint="optional">
           <input name="company" autoComplete="organization" placeholder="Acme Capital" className={inputCls} />
         </Field>
-        <Field label="Tier interest">
+        <Field label="Live signals — scope">
           <select value={tier} onChange={(e) => setTier(e.target.value)} className={`${inputCls} appearance-none`}>
             <option value="">Select…</option>
             {TIER_OPTIONS.map((t) => (

@@ -3,13 +3,12 @@ import type { Metadata } from "next";
 import { getCatalogue } from "@/lib/api";
 import { BUNDLES } from "@/lib/catalogue";
 import { pct1, num2 } from "@/lib/format";
-import TierCards from "@/components/TierCards";
 import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
-  title: "Pricing & bundles — BTC Alpha",
-  description: "Single, Bundle, or the full catalogue. Pricing on request. Bundle compositions.",
+  title: "Live signals — BTC Alpha",
+  description: "Historical data is free. Subscribe for the live signals — request-based. Bundle compositions.",
 };
 
 export default async function Pricing() {
@@ -20,14 +19,15 @@ export default async function Pricing() {
     <>
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 pt-16 pb-12">
-          <h1 className="text-4xl font-semibold sm:text-5xl">Pricing &amp; bundles</h1>
+          <h1 className="text-4xl font-semibold sm:text-5xl">Live signals</h1>
           <p className="mt-4 max-w-2xl text-text-muted">
-            Three ways to subscribe — a single strategy, a curated bundle, or the full {strategies.length}.
-            Licensed for professional &amp; institutional use. Pricing on request.
+            Every track record is <strong>free</strong> — verify all {strategies.length} against your own book,
+            no key. The product is the <strong>live signals</strong>: real-time, actionable trade alerts as each
+            strategy fires. Request-based; licensed for professional &amp; institutional use.
           </p>
-          <div className="mt-10">
-            <TierCards />
-          </div>
+          <Link href="/access" className="mt-8 inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
+            Subscribe for live signals
+          </Link>
         </div>
       </section>
 
@@ -81,9 +81,10 @@ export default async function Pricing() {
           </div>
 
           <div className="mt-12 rounded-2xl border border-border bg-surface p-8 text-center">
-            <h2 className="text-2xl font-semibold">Request access</h2>
+            <h2 className="text-2xl font-semibold">Subscribe for live signals</h2>
             <p className="mx-auto mt-3 max-w-lg text-text-muted">
-              Tell us which tier or bundle fits and we&apos;ll get you set up. Pricing on request.
+              The historical data is free — tell us which strategies you want <strong>live signals</strong> for
+              and we&apos;ll get you set up. Request-based.
             </p>
             <Link href="/access"
                className="mt-6 inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">

@@ -3,9 +3,9 @@ import AccessForm from "@/components/AccessForm";
 import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
-  title: "Request access — BTC Alpha",
+  title: "Subscribe for live signals — BTC Alpha",
   description:
-    "Request access to the BTC Alpha systematic strategy data — a single strategy, a curated bundle, or the full catalogue. Professional & institutional use.",
+    "Historical data is free. Request access to the BTC Alpha live trade signals — real-time, actionable, request-based. Professional & institutional use.",
 };
 
 export default async function AccessPage({
@@ -17,12 +17,12 @@ export default async function AccessPage({
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Get access</div>
-      <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">Request access</h1>
+      <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Live signals</div>
+      <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">Subscribe for live signals</h1>
       <p className="mt-4 max-w-xl text-text-muted">
-        Tell us about your desk and what you&apos;re after — a single strategy, a curated bundle,
-        or the full catalogue. We&apos;ll come back with access and pricing. Licensed for
-        professional &amp; institutional use.
+        All the historical data is <strong>free</strong> — verify everything first, no key. To receive the{" "}
+        <strong>live signals</strong> (real-time, actionable trade alerts as each strategy fires), tell us about
+        your desk and which strategies you want. Request-based; licensed for professional &amp; institutional use.
       </p>
 
       <div className="mt-10 rounded-2xl border border-border bg-surface-2 p-6 sm:p-8">

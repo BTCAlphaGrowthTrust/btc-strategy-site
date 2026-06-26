@@ -31,7 +31,6 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
     .filter((r) => r.cagr != null && r.cagr > 10)
     .map((r) => ({ ...r, pf: stats.profit_factor, sharpe: stats.sharpe_daily_annualized }));
   const bundles = bundlesForStrategy(id);
-  const inDiversifier = bundles.some((b) => b.flagship);
 
   return (
     <>
@@ -117,24 +116,20 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
             </p>
           </div>
 
-          {/* subscribe actions */}
+          {/* the data is free — live signals are the product */}
           <div className="rounded-xl border border-border bg-surface-2 p-6">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Subscribe</div>
-            <div className="mt-3 font-display text-lg font-semibold">Get this strategy</div>
+            <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Live signals</div>
+            <div className="mt-3 font-display text-lg font-semibold">The data is free — subscribe for the signals</div>
             <p className="mt-2 text-sm text-text-muted">
-              Live data, stats, returns and the risk-% tool — as a single-strategy subscription, or
-              bundled. Pricing on request.
+              Every stat, return series and the risk-% tool on this page are <strong>free, no key</strong> —
+              verify {meta.name} against your own book first. The product is the <strong>live signals</strong>:
+              real-time, actionable trade alerts as it fires. Request-based today.
             </p>
-            <Link href={`/access?tier=single&ctx=${encodeURIComponent(meta.name)}`} className="mt-5 block rounded-full bg-accent px-5 py-2.5 text-center font-medium text-bg transition-colors hover:bg-accent-hover">
-              Subscribe — Single tier
+            <Link href={`/access?ctx=${encodeURIComponent(meta.name)}`} className="mt-5 block rounded-full bg-accent px-5 py-2.5 text-center font-medium text-bg transition-colors hover:bg-accent-hover">
+              Subscribe for live signals
             </Link>
-            {inDiversifier && (
-              <Link href="/pricing#diversifier" className="mt-3 block rounded-full border border-accent/40 px-5 py-2.5 text-center font-medium text-accent transition-colors hover:bg-accent/10">
-                or get it in the Diversifier Bundle
-              </Link>
-            )}
-            <Link href="/pricing" className="mt-3 block rounded-full border border-border px-5 py-2.5 text-center font-medium text-text transition-colors hover:border-accent hover:text-accent">
-              or the full catalogue — everything
+            <Link href="/access" className="mt-3 block rounded-full border border-border px-5 py-2.5 text-center font-medium text-text transition-colors hover:border-accent hover:text-accent">
+              Contact for access — request-based
             </Link>
             {bundles.length > 0 && (
               <p className="mt-4 font-mono text-[11px] text-text-muted/60">

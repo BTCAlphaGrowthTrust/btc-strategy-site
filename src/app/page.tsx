@@ -3,7 +3,6 @@ import { getLanding } from "@/lib/api";
 import { pct1, num2 } from "@/lib/format";
 import CorrelationHeatmap from "@/components/CorrelationHeatmap";
 import { VerificationBadge } from "@/components/Badge";
-import TierCards from "@/components/TierCards";
 import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 export const revalidate = 3600;
@@ -171,19 +170,22 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 5 · TIERS — buy one, a set, or all of them */}
+      {/* 5 · FREE DATA → LIVE SIGNALS */}
       <section className="reveal">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex flex-wrap items-end justify-between gap-3">
-            <SectionLabel n="05" title={`Buy one, a set, or all ${d.count}`} />
-            <Link href="/pricing" className="text-sm text-accent hover:text-accent-hover">Full pricing &amp; bundles →</Link>
+            <SectionLabel n="05" title="Free to verify. Subscribe for the signals." />
+            <Link href="/access" className="text-sm text-accent hover:text-accent-hover">Request access →</Link>
           </div>
           <p className="mt-4 max-w-2xl text-text-muted">
-            Subscribe to a single strategy, a curated bundle, or the full {d.count}. Licensed for
-            professional &amp; institutional use — pricing on request.
+            Every track record, stat and return series is <strong>free, no key</strong> — verify all {d.count}{" "}
+            against your own book first. The product is the <strong>live signals</strong>: real-time, actionable
+            trade alerts as each strategy fires. Request-based; licensed for professional &amp; institutional use.
           </p>
           <div className="mt-8">
-            <TierCards />
+            <Link href="/access" className="inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
+              Subscribe for live signals
+            </Link>
           </div>
           <p className="mt-6 font-mono text-xs text-text-muted/60">
             <ObfuscatedEmail mode="text" placeholder="email us" className="text-text-muted/60" /> · backtested / modelled historical data, not advice
