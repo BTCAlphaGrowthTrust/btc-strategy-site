@@ -6,6 +6,7 @@ import { bundlesForStrategy } from "@/lib/catalogue";
 import { VerificationBadge } from "@/components/Badge";
 import StrategyCurve from "@/components/StrategyCurve";
 import RangeTable from "@/components/RangeTable";
+import MonthlyHeatmap from "@/components/MonthlyHeatmap";
 import { sweep } from "@/lib/rescale";
 
 export const revalidate = 3600;
@@ -112,6 +113,19 @@ export default async function StrategyPage({ params }: { params: Promise<{ id: s
             </p>
           </div>
         </div>
+
+        {/* monthly/annual returns heatmap — fund-standard track record (outcome data, down months shown) */}
+        {stats.fund_dd?.distribution?.monthly_returns_pct?.length ? (
+          <div className="mt-8 rounded-xl border border-border bg-surface p-5">
+            <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">Monthly returns — the full record</div>
+            <div className="mt-4">
+              <MonthlyHeatmap
+                monthly={stats.fund_dd.distribution.monthly_returns_pct}
+                annual={stats.fund_dd.distribution.annual_returns_pct}
+              />
+            </div>
+          </div>
+        ) : null}
 
         {/* two columns: provenance + subscribe */}
         <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
