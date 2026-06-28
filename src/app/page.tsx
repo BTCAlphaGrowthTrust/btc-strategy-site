@@ -80,12 +80,13 @@ export default async function Home() {
               flagged so you never act on one.
             </HowBlock>
             <HowBlock title="How your desk consumes them">
-              <strong className="text-text">Available now:</strong> pull from a gated REST API —{" "}
+              <strong className="text-text">Available now:</strong>{" "}
+              <strong className="text-text">signed webhook push</strong> (HMAC-verified POST to your
+              endpoint) and pull from a gated REST API —{" "}
               <code className="text-accent">GET /v1/signals/latest</code> and{" "}
               <code className="text-accent">/history</code> for gap-free catch-up — and/or{" "}
               <strong className="text-text">email alerts</strong>. One documented JSON schema to integrate
-              against. <strong className="text-text">On the roadmap (not live yet):</strong> webhook push and
-              streaming.
+              against. <strong className="text-text">On the roadmap (not live yet):</strong> streaming.
             </HowBlock>
             <HowBlock title="What a subscription delivers">
               Signals for the strategies you choose — a <strong className="text-text">single strategy</strong>,
