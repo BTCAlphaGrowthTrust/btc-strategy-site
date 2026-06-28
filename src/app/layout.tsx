@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import VerificationBar from "@/components/VerificationBar";
 import { getLanding } from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -17,20 +18,16 @@ export default async function RootLayout({
   // chrome can never drift from the body. Falls back to a count-free phrasing if the data service is
   // briefly unreachable (the bar must never break the whole layout).
   let barText =
-    "Backtested / modelled · most strategies dual-verified · independent forward verification underway";
+    "Signal strategies: most dual-verified · backtested/modelled · independent forward verification underway";
   try {
     const { strategies } = await getLanding();
     const dv = strategies.filter((s) => (s as any).verification_state === "dual_verified").length;
-    barText = `Backtested / modelled · ${dv} of ${strategies.length} dual-verified · independent forward verification underway`;
+    barText = `Signal strategies: ${dv} of ${strategies.length} dual-verified · backtested/modelled · independent forward verification underway`;
   } catch {}
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-bg text-text">
-        <div className="border-b border-accent/20 bg-accent/[0.06]">
-          <p className="mx-auto max-w-6xl px-6 py-1.5 text-center font-mono text-[11px] tracking-wide text-accent/90">
-            {barText}
-          </p>
-        </div>
+        <VerificationBar text={barText} />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />

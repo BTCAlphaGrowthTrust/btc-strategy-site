@@ -71,13 +71,7 @@ export default async function BuyProgramPage() {
             <Stat
               label="Cheaper than calendar DCA"
               value={vsDca ? bpsPct(vsDca.advantage_bps) : "—"}
-              sub={
-                vsDca?.cheaper_pct != null
-                  ? `accumulated ${vsDca.cheaper_pct.toFixed(1)}% cheaper`
-                  : vsDca
-                    ? `DCA at ${usd0(vsDca.dca_avg_cost)}`
-                    : undefined
-              }
+              sub={vsDca ? `${usd0(perf.avg_cost)} vs DCA ${usd0(vsDca.dca_avg_cost)}` : undefined}
             />
             <Stat
               label="Capital in cheapest quartile"
@@ -119,34 +113,24 @@ export default async function BuyProgramPage() {
             <Compare
               kicker="vs calendar DCA"
               big={vsDca ? bpsPct(vsDca.advantage_bps) : "—"}
-              line={
-                vsDca?.cheaper_pct != null
-                  ? `accumulated ${vsDca.cheaper_pct.toFixed(1)}% cheaper than calendar DCA`
-                  : vsDca
-                    ? `DCA average ${usd0(vsDca.dca_avg_cost)}`
-                    : "—"
-              }
+              line={vsDca ? `${usd2(perf.avg_cost)} vs DCA ${usd0(vsDca.dca_avg_cost)}` : "—"}
               good
             />
             <Compare
               kicker="vs period VWAP"
               big={vsVwap ? bpsPct(vsVwap.advantage_bps) : "—"}
-              line={vsVwap ? `bought below the cycle VWAP of ${usd0(vsVwap.vwap)}` : "—"}
+              line={vsVwap ? `${usd2(perf.avg_cost)} vs VWAP ${usd0(vsVwap.vwap)}` : "—"}
               good
             />
             <Compare
               kicker="vs lump-sum"
               big={vsLump ? bpsPct(vsLump.advantage_bps) : "—"}
-              line={
-                vsLump
-                  ? `vs a single buy at ${usd0(vsLump.lump_avg_cost)} — timing-dependent, shown honestly`
-                  : "—"
-              }
+              line={vsLump ? `${usd2(perf.avg_cost)} vs ${usd0(vsLump.lump_avg_cost)} single buy — timing-dependent` : "—"}
             />
             <Compare
               kicker="vs HODL entry"
               big={vsHodl ? bpsPct(vsHodl.advantage_bps) : "—"}
-              line={vsHodl ? `vs a buy-and-hold entry at ${usd0(vsHodl.hodl_avg_cost)}` : "—"}
+              line={vsHodl ? `${usd2(perf.avg_cost)} vs ${usd0(vsHodl.hodl_avg_cost)} buy-and-hold` : "—"}
             />
           </div>
 
@@ -262,13 +246,15 @@ export default async function BuyProgramPage() {
                 Verification &amp; custody
               </div>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                The program is{" "}
-                <span className="text-text">{titleCaseWord(preview.manifest.verification_state)}</span>{" "}
-                with <code className="text-accent">tv_status: {preview.manifest.tv_status}</code>;
-                independent forward verification is underway. It is{" "}
-                <span className="text-text">non-custodial</span> — a data signal only. Your funds
-                never leave your control, we hold no custody, and we place no trades on your behalf.
-                Not advice, not a recommendation, not a forecast.
+                The program is <span className="text-text">backtested and engine-verified</span> — the
+                portable engine is bit-exact versus the canonical reference port. It is{" "}
+                <span className="text-text">not</span> one of the dual-verified signal strategies:{" "}
+                <code className="text-accent">verification_state: {preview.manifest.verification_state}</code>,{" "}
+                <code className="text-accent">tv_status: {preview.manifest.tv_status}</code> — independent /
+                TradingView verification is <span className="text-text">not yet done</span>. It is{" "}
+                <span className="text-text">non-custodial</span> — a data signal only; your funds never
+                leave your control, we hold no custody, and we place no trades on your behalf. Not advice,
+                not a recommendation, not a forecast.
               </p>
             </div>
           </div>
