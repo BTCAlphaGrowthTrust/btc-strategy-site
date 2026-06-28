@@ -17,17 +17,19 @@ export default async function RootLayout({
   // Verification bar — driven by the SAME live verification_state count as the proof section, so the
   // chrome can never drift from the body. Falls back to a count-free phrasing if the data service is
   // briefly unreachable (the bar must never break the whole layout).
-  let barText =
-    "Signal strategies: most dual-verified · backtested/modelled · independent forward verification underway";
+  // Pass NUMBERS, not the "dual-verified" copy — so /buy-program (where the bar renders null) never
+  // carries the phrase in its payload. The bar string is assembled client-side in VerificationBar.
+  let dv: number | null = null;
+  let total: number | null = null;
   try {
     const { strategies } = await getLanding();
-    const dv = strategies.filter((s) => (s as any).verification_state === "dual_verified").length;
-    barText = `Signal strategies: ${dv} of ${strategies.length} dual-verified · backtested/modelled · independent forward verification underway`;
+    dv = strategies.filter((s) => (s as any).verification_state === "dual_verified").length;
+    total = strategies.length;
   } catch {}
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-bg text-text">
-        <VerificationBar text={barText} />
+        <VerificationBar dv={dv} total={total} />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
