@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/buy-program", "destination": "/gaia", "statusCode": 301 },
+    { "source": "/buy-program/:path*", "destination": "/gaia/:path*", "statusCode": 301 }
+  ]
+}
