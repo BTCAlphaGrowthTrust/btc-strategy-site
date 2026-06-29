@@ -20,9 +20,9 @@ import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Buy program — a cost-disciplined BTC accumulation program | BTC Alpha",
+  title: "Gaia — rules-based BTC cycle accumulation | BTC Alpha",
   description:
-    "A non-custodial BTC accumulation program for funds and treasuries. Deploys into statistical dips, accumulates below market average over the cycle, hands-off. Backtested and reproducible — model your own treasury.",
+    "Gaia: non-custodial, rules-based BTC cycle accumulation. Deploys into statistical dips, accumulated at $7,172.66 avg cost vs $15,462 DCA over the backtested cycle. Reproducible from the public endpoint — model your own treasury.",
 };
 
 export default async function BuyProgramPage() {
@@ -46,19 +46,19 @@ export default async function BuyProgramPage() {
       <section className="reveal border-b border-border">
         <div className="mx-auto max-w-6xl px-6 pt-20 pb-16">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-            A cost-disciplined BTC accumulation program
+            Gaia · rules-based BTC cycle accumulation
           </div>
           <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[1.05] sm:text-6xl">
             Accumulate Bitcoin below the market&apos;s own average — over the whole cycle.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-muted">
-            A hands-off program that deploys your capital into{" "}
+            Rules-based cycle accumulation that deploys capital into{" "}
             <span className="text-text">statistical dips</span>, not the calendar. Over a{" "}
             <span className="text-text">~8-year backtested cycle</span> it accumulated at an average
-            cost of <span className="text-text">{usd0(perf.avg_cost)}</span> per BTC — below naive
-            DCA, below lump-sum, below the period VWAP. It&apos;s{" "}
-            <span className="text-text">data and signal only</span>: non-custodial, you hold your own
-            BTC.
+            cost of <span className="text-text">{usd0(perf.avg_cost)}</span> per BTC —{" "}
+            {vsDca ? bpsPct(vsDca.advantage_bps) : "—"} below calendar DCA ({vsDca ? usd0(vsDca.dca_avg_cost) : "—"}),{" "}
+            {vsVwap ? bpsPct(vsVwap.advantage_bps) : "—"} below the period VWAP ({vsVwap ? usd0(vsVwap.vwap) : "—"}).
+            Non-custodial — you hold your own BTC.
           </p>
 
           {/* headline proof — entry quality first */}
@@ -101,12 +101,12 @@ export default async function BuyProgramPage() {
       {/* 2 · THE PROOF — lead with entry quality */}
       <section className="reveal border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
-          <SectionLabel n="01" title="The proof — entry quality, every number from the live preview" />
+          <SectionLabel n="01" title="The proof — avg cost vs benchmark, every number from the public preview" />
           <p className="mt-4 max-w-2xl text-text-muted">
-            The point of an accumulation program is the price you pay. On the backtested reference
-            basket the program deployed <Num>{rb.deploy_count.toLocaleString("en-US")}</Num> times
-            across the cycle, holding <Num>{btc4(rb.holdings_btc)}</Num> at an average cost of{" "}
-            <Num>{usd2(perf.avg_cost)}</Num>. Here is how that compares — honestly bracketed.
+            On the backtested reference basket the program deployed{" "}
+            <Num>{rb.deploy_count.toLocaleString("en-US")}</Num> times across the cycle, holding{" "}
+            <Num>{btc4(rb.holdings_btc)}</Num> at an average cost of <Num>{usd2(perf.avg_cost)}</Num>.
+            Avg cost vs each benchmark, reproducible from the public endpoint:
           </p>
 
           <div className="mt-10 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
@@ -146,8 +146,9 @@ export default async function BuyProgramPage() {
             />
           </div>
           <p className="mt-6 text-sm text-text-muted/80">
-            Lump-sum and HODL comparisons are timing-dependent and shown without spin: the edge that
-            generalises is the disciplined, dip-weighted entry versus a calendar schedule. As of{" "}
+            Lump-sum and HODL comparisons are timing-dependent. The benchmark that generalises is
+            dip-weighted entry vs a calendar DCA schedule: {vsDca ? bpsPct(vsDca.advantage_bps) : "—"}{" "}
+            cheaper at {usd0(perf.avg_cost)} vs {vsDca ? usd0(vsDca.dca_avg_cost) : "—"}. As of{" "}
             <Num>{rb.as_of.slice(0, 10)}</Num>.
           </p>
         </div>
@@ -158,9 +159,9 @@ export default async function BuyProgramPage() {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <SectionLabel n="02" title="Model your own treasury" />
           <p className="mt-4 max-w-2xl text-text-muted">
-            This is the program on your numbers. Change the inputs and we replay the same backtested
-            deployment logic, re-rendering all three charts and every headline to your basket. Every
-            figure is reproducible from the public endpoint.
+            Change the inputs and the same backtested deployment logic replays on your basket,
+            re-rendering all three charts and every headline figure. Every output is reproducible from
+            the public <code className="text-accent">/v1/program/preview/simulate</code> endpoint.
           </p>
           <div className="mt-8">
             <TreasuryModeller preview={preview} />
@@ -173,7 +174,7 @@ export default async function BuyProgramPage() {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <SectionLabel n="03" title="How it deploys — three horizons" />
           <p className="mt-4 max-w-2xl text-text-muted">
-            Deployments are graded across three aliased horizons. Deeper dips draw deeper
+            Deployments are graded across three horizons. Deeper statistical dips draw larger
             deployments; the markers on the price chart are coloured and sized to match.
           </p>
           <div className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">

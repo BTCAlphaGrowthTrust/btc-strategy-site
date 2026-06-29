@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getLanding } from "@/lib/api";
+import { getPreview, usd0, bpsPct, frac1 } from "@/lib/program";
 import { pct1, num2 } from "@/lib/format";
 import CorrelationHeatmap from "@/components/CorrelationHeatmap";
 import { VerificationBadge } from "@/components/Badge";
@@ -8,7 +9,14 @@ import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 export const revalidate = 3600;
 
 export default async function Home() {
-  const { strategies, correlation, derived: d } = await getLanding();
+  const [{ strategies, correlation, derived: d }, preview] = await Promise.all([
+    getLanding(),
+    getPreview(),
+  ]);
+  const perf = preview.performance;
+  const vsDca = perf.vs_dca;
+  const vsVwap = perf.vs_vwap;
+
   const top = [...strategies]
     .filter((s) => s.stats?.cagr_pct != null)
     .sort((a, b) => (b.stats.cagr_pct ?? 0) - (a.stats.cagr_pct ?? 0))
@@ -20,103 +28,141 @@ export default async function Home() {
       {/* status line */}
       <div className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-2 font-mono text-[11px] tracking-wider text-text-muted/70">
-          LIVE TRADE SIGNALS · {d.count} systematic BTC strategies · non-custodial · open record, no key
+          {d.count} systematic BTC strategies + 1 accumulation program · non-custodial · open record, no key
         </div>
       </div>
 
-      {/* 1 · HERO — what it is, in one read, honestly framed */}
+      {/* 1 · HERO — one portfolio thesis, facts in the subhead */}
       <section className="reveal border-b border-border">
         <div className="mx-auto max-w-6xl px-6 pt-20 pb-16">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-            Live, systematic Bitcoin signals
+            Systematic BTC portfolio · two subscribable products
           </div>
           <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[1.05] sm:text-6xl">
-            A low-correlation BTC return stream you verify before you pay.
+            The complete systematic BTC portfolio.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-muted">
-            {d.count} rules-based strategies on BTC-PERPETUAL, on a{" "}
-            <span className="text-text">~8-year backtested record</span> that is{" "}
-            <span className="text-text">open and free to inspect with no key</span>. Non-custodial — you
-            trade your own book. Independent verification is underway.
+            A foundation that accumulated BTC at{" "}
+            <span className="text-text">{vsDca ? bpsPct(vsDca.advantage_bps) : "—"} below calendar DCA</span>{" "}
+            ({usd0(perf.avg_cost)} vs {vsDca ? usd0(vsDca.dca_avg_cost) : "—"}), plus {d.count}{" "}
+            low-correlation systematic signals — mean pairwise correlation{" "}
+            <span className="text-text">{num2(d.meanCorr)}</span>, about{" "}
+            <span className="text-text">{num2(d.effectiveBets)} independent bets</span>. Non-custodial,
+            backtested, reproducible from public endpoints with no key.
           </p>
 
-          {/* book-level proof only — no single-strategy peak in the hero */}
-          <div className="mt-10 flex flex-wrap items-end gap-x-12 gap-y-6">
-            <Stat label="Equal-weight book Sharpe" value={num2(d.book.sharpe_daily_annualized)}
-                  sub={`beats every single (≤ ${num2(d.sharpeMax)})`} />
-            <Stat label="Independent bets" value={num2(d.effectiveBets)}
-                  sub={`from ${d.count} strategies · mean corr ${num2(d.meanCorr)}`} />
-            <Stat label="Book max drawdown" value={pct1(d.book.max_drawdown_pct)}
-                  sub={`vs ${pct1(d.ddMedian)} median single`} muted />
-          </div>
-
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/access" className="rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
-              Request access →
+            <Link href="/buy-program" className="rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
+              Model your treasury →
             </Link>
             <Link href="/strategies"
                className="rounded-full border border-border px-6 py-3 font-medium text-text transition-colors hover:border-accent hover:text-accent">
-              Verify the record free
+              Explore the strategies →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 2 · THREE DOORS — each reader reaches THEIR value in one click */}
+      {/* 2 · THE TWO PRODUCTS — layered: foundation then alpha, each independently subscribable */}
       <section className="reveal border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-3">
-            <Door kicker="You allocate" title="A book that beats its own best piece"
-                  href="https://docs.btcalpha.com.au/docs/methodology/correlation"
-                  cta="The correlation method ↗" external>
-              {d.count} strategies, mean pairwise correlation{" "}
-              <strong className="text-text">{num2(d.meanCorr)}</strong> — about{" "}
-              <strong className="text-text">{num2(d.effectiveBets)} independent bets</strong>.
-              Equal-weight, the book Sharpe is{" "}
-              <strong className="text-text">{num2(d.book.sharpe_daily_annualized)}</strong>, higher than{" "}
-              <strong className="text-text">every</strong> single strategy, at{" "}
-              <strong className="text-text">{pct1(d.book.max_drawdown_pct)}</strong> max drawdown vs{" "}
-              {pct1(d.ddMedian)} for the median single. Non-custodial.
-            </Door>
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <SectionLabel n="01" title="Two products, independently subscribable, one stack" />
+          <p className="mt-4 max-w-2xl text-text-muted">
+            Subscribe to either on its own, or run both. Each number below is reproducible from a
+            keyless public endpoint.
+          </p>
 
-            <Door kicker="You integrate" title="One schema. Push or pull. No key to look."
-                  href="https://docs.btcalpha.com.au/docs/get-started/quickstart"
-                  cta="Quickstart + integration ↗" external>
-              <div className="rounded-lg border border-border bg-bg/50 p-3 font-mono text-[12px] leading-relaxed">
-                <span className="text-text-muted/60"># the full record — free, no key</span>
-                <div className="mt-1"><span className="text-text-muted">$</span> curl btc-strategy-data-api.fly.dev<span className="text-accent">/v1/strategies</span></div>
+          {/* FOUNDATION — Gaia */}
+          <div className="mt-10 rounded-xl border border-border bg-surface p-7">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <div>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Foundation</span>
+                <h3 className="mt-1 font-display text-2xl font-semibold text-text">Gaia</h3>
               </div>
-              <div className="mt-3">
-                One documented JSON schema. <strong className="text-text">Signed webhook push</strong>{" "}
-                (raw-bytes HMAC) or <strong className="text-text">pull</strong> with gap-free{" "}
-                <code className="text-accent">/history?since=</code>.
-              </div>
-            </Door>
+              <Link href="/buy-program" className="text-sm font-medium text-accent hover:text-accent-hover">
+                Model your treasury →
+              </Link>
+            </div>
+            <p className="mt-4 max-w-3xl text-text-muted">
+              Rules-based cycle accumulation that deploys into statistical dips and accumulates below
+              the market&apos;s own average. Over the backtested cycle it held at an average cost of{" "}
+              <Num>{usd0(perf.avg_cost)}</Num> per BTC. Every figure is reproducible from the keyless{" "}
+              <code className="text-accent">GET /v1/program/preview</code>.
+            </p>
+            <div className="mt-7 grid gap-x-10 gap-y-6 sm:grid-cols-3">
+              <Compare
+                label="vs calendar DCA"
+                book={vsDca ? bpsPct(vsDca.advantage_bps) : "—"}
+                single={vsDca ? `${usd0(perf.avg_cost)} vs DCA ${usd0(vsDca.dca_avg_cost)}` : "—"}
+                good
+              />
+              <Compare
+                label="vs period VWAP"
+                book={vsVwap ? bpsPct(vsVwap.advantage_bps) : "—"}
+                single={vsVwap ? `${usd0(perf.avg_cost)} vs VWAP ${usd0(vsVwap.vwap)}` : "—"}
+                good
+              />
+              <Compare
+                label="Capital in cheapest quartile"
+                book={frac1(perf.pct_capital_in_cheapest_quartile)}
+                single="of cycle prices"
+              />
+            </div>
+          </div>
 
-            <Door kicker="You're sizing the allocation" title="No fund capacity cap. Your venue, your size."
-                  href="/access" cta="Request access →">
-              Signals, not a fund: <strong className="text-text">no pooled capital and no capacity
-              constraint on our side</strong>. You execute on your own venue, at your own size — funds{" "}
-              <strong className="text-text">never leave your exchange</strong>. Sizing is yours via{" "}
-              <code className="text-accent">base_risk_pct</code>, bounded only by your venue&apos;s
-              BTC-PERPETUAL liquidity and slippage.
-            </Door>
+          {/* ALPHA — Strategies, built on top */}
+          <div className="mt-5 rounded-xl border border-border bg-surface p-7">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <div>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Alpha · on top of Gaia</span>
+                <h3 className="mt-1 font-display text-2xl font-semibold text-text">Strategies</h3>
+              </div>
+              <Link href="/strategies" className="text-sm font-medium text-accent hover:text-accent-hover">
+                Explore all {d.count} →
+              </Link>
+            </div>
+            <p className="mt-4 max-w-3xl text-text-muted">
+              {d.count} low-correlation systematic signals on BTC-PERPETUAL, adding uncorrelated PnL on
+              top of the accumulation core. Mean pairwise correlation <Num>{num2(d.meanCorr)}</Num> —
+              about <Num>{num2(d.effectiveBets)}</Num> independent bets. Every record is reproducible
+              from the keyless <code className="text-accent">GET /v1/strategies</code>.
+            </p>
+            <div className="mt-7 grid gap-x-10 gap-y-6 sm:grid-cols-3">
+              <Compare
+                label="Equal-weight book Sharpe"
+                book={num2(d.book.sharpe_daily_annualized)}
+                single={`exceeds every single (≤ ${num2(d.sharpeMax)})`}
+                good
+              />
+              <Compare
+                label="Independent bets"
+                book={num2(d.effectiveBets)}
+                single={`from ${d.count} strategies`}
+              />
+              <Compare
+                label="Mean pairwise correlation"
+                book={num2(d.meanCorr)}
+                single="lower is better"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3 · THE PROOF — lead with book-level aggregates */}
+      {/* 3 · THE PROOF — book-level aggregates */}
       <section className="reveal border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
-          <SectionLabel n="01" title="The proof — the edge is low correlation, at book level" />
+          <SectionLabel n="02" title="The proof — low correlation at book level" />
           <div className="mt-6 grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
             <div className="max-w-xl">
               <p className="text-text-muted">
                 {d.count} systematic strategies, each backtested ~8 years on BTC-PERPETUAL, net of fees
-                &amp; slippage. Strong individually — but they don&apos;t move together. Mean pairwise
-                correlation is <Num>{num2(d.meanCorr)}</Num>, so they behave like about{" "}
-                <Num>{num2(d.effectiveBets)}</Num> independent bets. Equal-weight, the book is{" "}
-                <span className="text-text">steadier than any single piece</span>:
+                &amp; slippage. Mean pairwise correlation is <Num>{num2(d.meanCorr)}</Num>, so they
+                behave like about <Num>{num2(d.effectiveBets)}</Num> independent bets. Equal-weight, the
+                book&apos;s Sharpe of <Num>{num2(d.book.sharpe_daily_annualized)}</Num> exceeds every one
+                of the {d.count} strategies individually, at{" "}
+                <Num>{pct1(d.book.max_drawdown_pct)}</Num> max drawdown vs {pct1(d.ddMedian)} for the
+                median single:
               </p>
               <div className="mt-8 grid grid-cols-2 gap-x-10 gap-y-6">
                 <Compare label="Sharpe (risk-adjusted)" book={num2(d.book.sharpe_daily_annualized)}
@@ -128,8 +174,8 @@ export default async function Home() {
                 <Compare label="Mean correlation" book={num2(d.meanCorr)} single="lower is better" />
               </div>
               <p className="mt-8 text-sm text-text-muted/80">
-                The equal-weight book&apos;s Sharpe exceeds <span className="text-text">every</span> one of
-                the {d.count} strategies individually — diversification you can verify cell by cell. →{" "}
+                The equal-weight book&apos;s Sharpe exceeds every one of the {d.count} strategies
+                individually — verifiable cell by cell. →{" "}
                 <a href="https://docs.btcalpha.com.au/docs/methodology/correlation" className="text-accent hover:text-accent-hover">methodology</a>
               </p>
             </div>
@@ -156,11 +202,11 @@ export default async function Home() {
               </p>
             </div>
             <div className="rounded-xl border border-border bg-surface p-5">
-              <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">Your money stays yours</div>
+              <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">Non-custodial</div>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                We send a signal — nothing more. <span className="text-text">Your funds never leave your
-                exchange</span>, we hold no custody, and we place no trades on your behalf. Backtested /
-                modelled, provisional — not advice, not a forecast.
+                Each product emits a signal — nothing more. <span className="text-text">Your funds never
+                leave your exchange</span>, we hold no custody, and we place no trades on your behalf.
+                Backtested / modelled, provisional — not advice, not a forecast.
               </p>
             </div>
           </div>
@@ -172,12 +218,11 @@ export default async function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
-              <SectionLabel n="02" title="Verify the record — free, no key" />
+              <SectionLabel n="03" title="Verify the record — free, no key" />
               <p className="mt-4 max-w-md text-text-muted">
-                Don&apos;t take our word for it. Every track record behind the signals — all {d.count}{" "}
-                strategies&apos; stats, returns, equity curves, correlation and a book-level summary — is{" "}
-                <span className="text-text">free and open, no key</span>. Pull it into your own model and
-                check the proof before you subscribe.
+                Every track record behind the signals — all {d.count} strategies&apos; stats, returns,
+                equity curves, correlation and a book-level summary, plus the Gaia accumulation preview —
+                is open with no key. Pull it into your own model before you subscribe.
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
                 <a href="https://docs.btcalpha.com.au/docs/recipes/evaluate-vs-your-book" className="text-accent hover:text-accent-hover">Evaluate vs your book ↗</a>
@@ -206,7 +251,7 @@ export default async function Home() {
       <section className="reveal border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex items-end justify-between">
-            <SectionLabel n="03" title="The strategies" />
+            <SectionLabel n="04" title="The strategies" />
             <Link href="/strategies" className="text-sm text-accent hover:text-accent-hover">Explore all {d.count} →</Link>
           </div>
           <div className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -233,14 +278,16 @@ export default async function Home() {
       {/* 6 · ACCESS — the culmination */}
       <section className="reveal">
         <div className="mx-auto max-w-6xl px-6 py-20">
-          <SectionLabel n="04" title="Request access" />
+          <SectionLabel n="05" title="Request access" />
           <p className="mt-4 max-w-2xl text-text-muted">
-            The record is free to verify. When you want to <strong className="text-text">act</strong> on it
-            in real time, that&apos;s the product: live, actionable signals as each strategy fires — a
-            single strategy, a bundle, or the full {d.count}. You trade on your own venue, at your own size;
-            we only send the signal. Request-based.
+            The record is free to verify. Subscribe to Gaia, the {d.count} strategies, or both — each is
+            independently subscribable. Live signals fire as each strategy or deployment qualifies. You
+            trade on your own venue, at your own size; we only send the signal. Request-based.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/buy-program" className="inline-block rounded-full border border-border px-6 py-3 font-medium text-text transition-colors hover:border-accent hover:text-accent">
+              Model your treasury →
+            </Link>
             <Link href="/access" className="inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
               Request access
             </Link>
@@ -255,30 +302,6 @@ export default async function Home() {
 }
 
 /* ---- local presentational helpers ---- */
-function Stat({ label, value, sub, muted }: { label: string; value: string; sub?: string; muted?: boolean }) {
-  return (
-    <div>
-      <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">{label}</div>
-      <div className={`mt-1 font-mono text-4xl font-semibold tabular-nums ${muted ? "text-text" : "text-accent"}`}>{value}</div>
-      {sub && <div className="mt-1 font-mono text-[11px] text-text-muted/60">{sub}</div>}
-    </div>
-  );
-}
-function Door({ kicker, title, href, cta, external, children }: {
-  kicker: string; title: string; href: string; cta: string; external?: boolean; children: React.ReactNode;
-}) {
-  const inner = (
-    <div className="flex h-full flex-col bg-surface p-6 transition-colors hover:bg-surface-2">
-      <div className="font-mono text-[11px] uppercase tracking-wider text-accent">{kicker}</div>
-      <div className="mt-2 font-display text-lg font-semibold leading-snug text-text">{title}</div>
-      <div className="mt-3 flex-1 text-sm leading-relaxed text-text-muted">{children}</div>
-      <div className="mt-5 text-sm font-medium text-accent">{cta}</div>
-    </div>
-  );
-  return external
-    ? <a href={href} className="group block h-full">{inner}</a>
-    : <Link href={href} className="group block h-full">{inner}</Link>;
-}
 function SectionLabel({ n, title, center }: { n: string; title: string; center?: boolean }) {
   return (
     <div className={center ? "text-center" : ""}>
@@ -295,7 +318,7 @@ function Compare({ label, book, single, good }: { label: string; book: string; s
     <div>
       <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">{label}</div>
       <div className={`mt-1 font-mono text-2xl font-semibold tabular-nums ${good ? "text-accent" : "text-text"}`}>{book}</div>
-      <div className="mt-0.5 font-mono text-[11px] text-text-muted/60">vs {single}</div>
+      <div className="mt-0.5 font-mono text-[11px] text-text-muted/60">{single}</div>
     </div>
   );
 }

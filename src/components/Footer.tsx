@@ -22,6 +22,7 @@ export default function Footer() {
           <div className="flex gap-14 text-sm">
             <div className="flex flex-col gap-2.5">
               <span className="font-medium text-text">Product</span>
+              <Link href="/buy-program" className="text-text-muted hover:text-accent-hover">Gaia</Link>
               <Link href="/strategies" className="text-text-muted hover:text-accent-hover">Strategies</Link>
               <Link href="/pricing" className="text-text-muted hover:text-accent-hover">Pricing</Link>
               <a href="https://docs.btcalpha.com.au/docs/methodology/overview" className="text-text-muted hover:text-accent-hover">Methodology</a>
