@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/buy-program", label: "Gaia" },
+  { href: "/gaia", label: "Gaia" },
   { href: "/strategies", label: "Strategies" },
   { href: "https://docs.btcalpha.com.au/docs/methodology/overview", label: "Methodology", external: true },
   { href: "https://docs.btcalpha.com.au", label: "Docs ↗", external: true },

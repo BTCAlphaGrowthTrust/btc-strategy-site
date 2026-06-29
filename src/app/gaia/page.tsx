@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "Gaia: non-custodial, rules-based BTC cycle accumulation. Deploys into statistical dips, accumulated at $7,172.66 avg cost vs $15,462 DCA over the backtested cycle. Reproducible from the public endpoint — model your own treasury.",
 };
 
-export default async function BuyProgramPage() {
+export default async function GaiaPage() {
   const preview = await getPreview();
   const { reference_basket: rb, performance: perf, charts } = preview;
   const vsDca = perf.vs_dca;
@@ -162,6 +162,11 @@ export default async function BuyProgramPage() {
             Change the inputs and the same backtested deployment logic replays on your basket,
             re-rendering all three charts and every headline figure. Every output is reproducible from
             the public <code className="text-accent">/v1/program/preview/simulate</code> endpoint.
+          </p>
+          <p className="mt-3 max-w-2xl text-sm text-text-muted/80">
+            The DCA benchmark uses your exact contribution schedule — same cadence, same dollars; the
+            only difference is dip-timing vs buying on the calendar date. Switch the frequency to
+            weekly, biweekly, or monthly and the DCA line re-computes to your schedule.
           </p>
           <div className="mt-8">
             <TreasuryModeller preview={preview} />

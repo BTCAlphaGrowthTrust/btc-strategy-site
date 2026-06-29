@@ -17,7 +17,7 @@ export default async function RootLayout({
   // Verification bar — driven by the SAME live verification_state count as the proof section, so the
   // chrome can never drift from the body. Falls back to a count-free phrasing if the data service is
   // briefly unreachable (the bar must never break the whole layout).
-  // Pass NUMBERS, not the "dual-verified" copy — so /buy-program (where the bar renders null) never
+  // Pass NUMBERS, not the "dual-verified" copy — so /gaia (where the bar renders null) never
   // carries the phrase in its payload. The bar string is assembled client-side in VerificationBar.
   let dv: number | null = null;
   let total: number | null = null;

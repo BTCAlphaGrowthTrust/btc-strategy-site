@@ -52,7 +52,7 @@ export default async function Home() {
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/buy-program" className="rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
+            <Link href="/gaia" className="rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
               Model your treasury →
             </Link>
             <Link href="/strategies"
@@ -79,7 +79,7 @@ export default async function Home() {
                 <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Foundation</span>
                 <h3 className="mt-1 font-display text-2xl font-semibold text-text">Gaia</h3>
               </div>
-              <Link href="/buy-program" className="text-sm font-medium text-accent hover:text-accent-hover">
+              <Link href="/gaia" className="text-sm font-medium text-accent hover:text-accent-hover">
                 Model your treasury →
               </Link>
             </div>
@@ -285,7 +285,7 @@ export default async function Home() {
             trade on your own venue, at your own size; we only send the signal. Request-based.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/buy-program" className="inline-block rounded-full border border-border px-6 py-3 font-medium text-text transition-colors hover:border-accent hover:text-accent">
+            <Link href="/gaia" className="inline-block rounded-full border border-border px-6 py-3 font-medium text-text transition-colors hover:border-accent hover:text-accent">
               Model your treasury →
             </Link>
             <Link href="/access" className="inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg transition-colors hover:bg-accent-hover">
