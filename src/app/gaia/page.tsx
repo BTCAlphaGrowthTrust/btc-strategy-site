@@ -253,11 +253,15 @@ export default async function GaiaPage() {
               </div>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
                 The program is <span className="text-text">backtested and engine-verified</span> — the
-                portable engine is bit-exact versus the canonical reference port. It is{" "}
-                <span className="text-text">not</span> one of the dual-verified signal strategies:{" "}
+                portable engine is bit-exact versus the canonical reference port. Its{" "}
+                <span className="text-text">allocation logic is independently verified against a
+                hand-authored TradingView indicator — 94% of deploys land on the same bar at the same
+                price</span>. It is still <span className="text-text">not</span> one of the dual-verified
+                signal strategies:{" "}
                 <code className="text-accent">verification_state: {preview.manifest.verification_state}</code>,{" "}
-                <code className="text-accent">tv_status: {preview.manifest.tv_status}</code> — independent /
-                TradingView verification is <span className="text-text">not yet done</span>. It is{" "}
+                <code className="text-accent">tv_status: {preview.manifest.tv_status}</code> — the historical{" "}
+                <span className="text-text">avg cost and DCA-savings figures are engine-backtested, not
+                independently TradingView-verified</span>. It is{" "}
                 <span className="text-text">non-custodial</span> — a data signal only; your funds never
                 leave your control, we hold no custody, and we place no trades on your behalf. Not advice,
                 not a recommendation, not a forecast.
