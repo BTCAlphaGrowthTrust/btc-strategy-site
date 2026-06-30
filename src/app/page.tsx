@@ -68,15 +68,17 @@ export default async function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <SectionLabel n="01" title="Two products, independently subscribable, one stack" />
           <p className="mt-4 max-w-2xl text-text-muted">
-            Subscribe to either on its own, or run both. Each number below is reproducible from a
-            keyless public endpoint.
+            A barbell for a Bitcoin balance sheet: <span className="text-text">Gaia is the defensive BTC
+            core</span> — accumulate low, hold your own coins — and <span className="text-text">the
+            strategies are the uncorrelated alpha sleeve</span> on top. Subscribe to either on its own,
+            or run both. Each number below is reproducible from a keyless public endpoint.
           </p>
 
           {/* FOUNDATION — Gaia */}
           <div className="mt-10 rounded-xl border border-border bg-surface p-7">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Foundation</span>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Foundation · defensive BTC core</span>
                 <h3 className="mt-1 font-display text-2xl font-semibold text-text">Gaia</h3>
               </div>
               <Link href="/gaia" className="text-sm font-medium text-accent hover:text-accent-hover">
@@ -114,7 +116,7 @@ export default async function Home() {
           <div className="mt-5 rounded-xl border border-border bg-surface p-7">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Alpha · on top of Gaia</span>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-accent">Alpha sleeve · on top of Gaia</span>
                 <h3 className="mt-1 font-display text-2xl font-semibold text-text">Strategies</h3>
               </div>
               <Link href="/strategies" className="text-sm font-medium text-accent hover:text-accent-hover">
@@ -190,22 +192,27 @@ export default async function Home() {
           {/* verification honesty (reconciled with the API) + custody */}
           <div className="mt-16 grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl border border-accent/30 bg-accent/[0.04] p-5">
-              <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Where verification stands</div>
+              <div className="font-mono text-[11px] uppercase tracking-wider text-accent">The verification ladder</div>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                <span className="text-text">{dualVerified} of {d.count} are dual-verified</span> — the
-                engine&apos;s logic reproduces the verified TradingView Pine <span className="text-text">and</span>{" "}
-                the backtested PnL sits within the TradingView-exported band. The rest are
-                engine-backtested (logic matches; PnL band still tightening). The same{" "}
-                <code className="text-accent">verification_state</code> is in the API — curl it and check.
-                <span className="text-text"> Independent, forward verification is underway</span>; every
-                record stays <code>tv_status: provisional</code> until then.
+                Every record climbs the same published ladder — nothing skips a rung:{" "}
+                <code className="text-accent">engine_backtested</code> → <code className="text-accent">provisional</code> → <code className="text-accent">dual_verified</code>.
+                A record reaches <span className="text-text">dual_verified</span> only when the engine&apos;s logic
+                reproduces the verified TradingView Pine <span className="text-text">and</span> the backtested
+                PnL sits within the TradingView-exported band. Today{" "}
+                <span className="text-text">{dualVerified} of {d.count} are dual-verified</span>; the rest are
+                engine-backtested (logic matches, PnL band still tightening). The promotion criterion is{" "}
+                <span className="text-text">independent, forward verification</span> — until that lands a record
+                stays <code>tv_status: provisional</code>. The same <code className="text-accent">verification_state</code>{" "}
+                is in the API — curl it and check.
               </p>
             </div>
             <div className="rounded-xl border border-border bg-surface p-5">
-              <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">Non-custodial</div>
+              <div className="font-mono text-[11px] uppercase tracking-wider text-text-muted/70">Non-custodial &amp; continuity</div>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                Each product emits a signal — nothing more. <span className="text-text">Your funds never
-                leave your exchange</span>, we hold no custody, and we place no trades on your behalf.
+                Signals are advisory and non-custodial — <span className="text-text">you hold your own BTC on
+                your own exchange</span>; we hold no custody and place no trades on your behalf.{" "}
+                <span className="text-text">If BTC Alpha ceases operation, you lose a data feed, not your
+                assets</span> — and we commit to at least 30 days&apos; notice before any wind-down.
                 Backtested / modelled, provisional — not advice, not a forecast.
               </p>
             </div>
@@ -293,7 +300,7 @@ export default async function Home() {
             </Link>
           </div>
           <p className="mt-6 font-mono text-xs text-text-muted/60">
-            <ObfuscatedEmail mode="text" placeholder="email us" className="text-text-muted/60" /> · backtested / modelled historical data, provisional, not advice
+            <ObfuscatedEmail mode="text" placeholder="email us" className="text-text-muted/60" /> · operated by Thomas (Tom) Makin — ISI Australia Pty Ltd, ABN 27 652 105 345 · backtested / modelled historical data, provisional, not advice
           </p>
         </div>
       </section>

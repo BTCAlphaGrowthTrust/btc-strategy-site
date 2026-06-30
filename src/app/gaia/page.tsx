@@ -38,7 +38,7 @@ export default async function GaiaPage() {
       {/* status line */}
       <div className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-2 font-mono text-[11px] tracking-wider text-text-muted/70">
-          BTC ACCUMULATION PROGRAM · non-custodial · you hold your own BTC · open preview, no key
+          BTC ACCUMULATION PROGRAM · the defensive BTC core · non-custodial · you hold your own BTC · open preview, no key
         </div>
       </div>
 
@@ -263,14 +263,16 @@ export default async function GaiaPage() {
                 <span className="text-text">avg cost and DCA-savings figures are engine-backtested, not
                 independently TradingView-verified</span>. It is{" "}
                 <span className="text-text">non-custodial</span> — a data signal only; your funds never
-                leave your control, we hold no custody, and we place no trades on your behalf. Not advice,
-                not a recommendation, not a forecast.
+                leave your control, we hold no custody, and we place no trades on your behalf.{" "}
+                <span className="text-text">If BTC Alpha ceases operation you lose a data feed, not your
+                assets</span> (we commit to ≥30 days&apos; notice before any wind-down). Not advice, not a
+                recommendation, not a forecast.
               </p>
             </div>
           </div>
           <p className="mt-6 text-xs text-text-muted">
-            BTC Alpha is operated by ISI Australia Pty Ltd · ABN 27 652 105 345. Factual historical
-            data, backtested / modelled, provisional — not advice.
+            BTC Alpha is operated by Thomas (Tom) Makin — Founder &amp; Principal, ISI Australia Pty Ltd ·
+            ABN 27 652 105 345. Factual historical data, backtested / modelled, provisional — not advice.
           </p>
         </div>
       </section>

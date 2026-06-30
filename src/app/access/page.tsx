@@ -25,6 +25,26 @@ export default async function AccessPage({
         your desk and which strategies you want. Request-based; licensed for professional &amp; institutional use.
       </p>
 
+      <div className="mt-8 grid gap-3 sm:grid-cols-3">
+        {[
+          { name: "Single", desc: "One strategy, or Gaia on its own." },
+          { name: "Bundle", desc: "A curated set across the book." },
+          { name: "Full catalogue", desc: "Every strategy + the Gaia core." },
+        ].map((t) => (
+          <div key={t.name} className="rounded-xl border border-border bg-surface p-4">
+            <div className="font-mono text-[11px] uppercase tracking-wider text-accent">{t.name}</div>
+            <p className="mt-1 text-sm text-text-muted">{t.desc}</p>
+            <p className="mt-2 font-mono text-xs text-text-muted/70">Request pricing →</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-xs leading-relaxed text-text-muted">
+        Operated by <span className="text-text">Thomas (Tom) Makin — Founder &amp; Principal, ISI Australia
+        Pty Ltd (ABN 27 652 105 345)</span>. Signals are advisory and non-custodial — you hold your own BTC on
+        your own exchange; if BTC Alpha ceases operation you lose a data feed, not your assets (we commit to
+        ≥30 days&apos; notice before any wind-down).
+      </p>
+
       <div className="mt-10 rounded-2xl border border-border bg-surface-2 p-6 sm:p-8">
         <AccessForm initialTier={tier} context={ctx} />
       </div>
